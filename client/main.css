@@ -1,1 +1,45 @@
 /* CSS declarations go here */
+ul.output li {
+  border: 1px solid black;
+  padding: 5px;
+}
+ul.output li.warning {
+  background: yellow;
+}
+ul.output li.error {
+  background: red;
+}
+ul.output div {
+  display: inline-block;
+}
+ul.output .date {
+  width: 100px;
+  vertical-align: text-top;
+}
+ul.output .p1 {
+  text-align: right;
+  width: 50px;
+}
+ul.output .p2 {
+  width: 50px;
+}
+ul.output .process {
+  width: 100px;
+}
+ul.output .type {
+  width: 100px;
+}
+ul.output .ip {
+  width: 140px;
+  vertical-align: text-top;
+}
+ul.output .method {
+  width: 200px;
+  overflow: hidden;
+  vertical-align: text-top;
+}
+ul.output .message {
+  vertical-align: text-top;
+  width: calc(100% - 100px - 50px - 50px - 100px - 100px - 140px - 200px - 30px);
+  margin-bottom: 5px;
+}
