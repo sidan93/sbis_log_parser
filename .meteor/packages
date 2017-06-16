@@ -21,3 +21,10 @@ shell-server@0.2.1            # Server-side component of the `meteor shell` comm
 autopublish@1.0.7             # Publish all data to the clients (for prototyping)
 insecure@1.0.7                # Allow all DB writes from clients (for prototyping)
 reactive-dict
+aslagle:reactive-table
+twbs:bootstrap
+tsega:bootstrap3-datetimepicker
+rzymek:moment-locale-pt-br
+rzymek:moment-locale-it
+rzymek:moment
+rzymek:moment-locale-ru

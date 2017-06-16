@@ -43,3 +43,8 @@ ul.output .message {
   width: calc(100% - 100px - 50px - 50px - 100px - 100px - 140px - 200px - 30px);
   margin-bottom: 5px;
 }
+
+
+.datetimepicker {
+  width: 300px;
+}

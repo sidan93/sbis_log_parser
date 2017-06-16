@@ -37,4 +37,4 @@ export const LoadLibMask = /(\d\d:\d\d:\d\d.\d\d\d)\s\[(\d+)]\[(\d+)]\s(\d+)\s(\
  * 12 - Конец вызова метода "СменаККМ.Создать/2". [exec_period] 18
  * @type {RegExp}
  */
-export const ExecFuncMask = /(\d\d:\d\d:\d\d.\d\d\d)\s\[(\d+)]\[(\d+)]\s(\d+)\s(\S+)\s+(\d+.\d+.\d+.\d+)\s+(\d+.\d+.\d+.\d+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(\d+)\s+(.+)/g;
+export const ExecFuncMask = /(\d\d:\d\d:\d\d.\d\d\d)\s\[(\d+)]\[(\d+)]\s(\d+)\s(\S+)\s+(\d+.\d+.\d+.\d+)\s+(\d+.\d+.\d+.\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(.+)/g;

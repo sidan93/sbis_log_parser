@@ -1,40 +1,35 @@
 <head>
-  <title>SBIS log parser</title>
+    <title>SBIS log parser</title>
 </head>
 
 <body>
-  {{> load_file}}
+    {{> load_file}}
 </body>
 
 <template name="load_file">
-  <input type="file" id="select_file" name="files"/>
-  <div>
-    Строк: {{getRowCount}}
-  </div>
-  Фильтр:
-  <select id="filter_type">
-    <option value="all">Все</option>
-    <option value="warn">Только предупреждения</option>
-    <option value="err">Только ошибки</option>
-    <option value="warnerr">Ошибки и предупреждения</option>
-  </select>
-  Метод: <input id="filter_method" type="text"/>
-  <ul class="output">
-    {{#each getRow 1000}}
-      <li class="{{class_type}}">
-        {{#each data}}
-          <div>
-            <div class="date">{{date}}</div>
-            <div class="p1">{{p1}}</div>
-            <div class="p2">{{p2}}</div>
-            <div class="process">{{process}}</div>
-            <div class="type">{{type}}</div>
-            <div class="ip">{{ip1}} {{ip2}}</div>
-            <div class="method" title="{{method}}">{{method}}</div>
-            <div class="message">{{message}}</div>
-          </div>
-        {{/each}}
-      </li>
-    {{/each}}
-  </ul>
+    <input type="file" id="select_file" name="files"/>
+    <div>
+        Строк: {{getRowCount}}
+    </div>
+    Фильтр:
+    <select id="filter_type" class="form-control">
+        <option value="all">Все</option>
+        <option value="warn">Только предупреждения</option>
+        <option value="err">Только ошибки</option>
+        <option value="warnerr">Ошибки и предупреждения</option>
+    </select>
+    <div>
+        Отбирать С:
+        <div class="input-group datetimepicker" id="fromdatetime">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            <input class="set-due-date form-control" type="text" />
+        </div>
+        До:
+        <div class="input-group datetimepicker" id="todatetime">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            <input class="set-due-date form-control" type="text" />
+        </div>
+    </div>
+    Метод: <input id="filter_method" type="text" class="form-control"/>
+    {{> reactiveTable class="table table-bordered table-hover" collection=getRow }}
 </template>
