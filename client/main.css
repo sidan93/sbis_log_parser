@@ -1,50 +1,48 @@
-/* CSS declarations go here */
-ul.output li {
-  border: 1px solid black;
-  padding: 5px;
+.content {
+  margin: 5px;
 }
-ul.output li.warning {
-  background: yellow;
+
+.filter .date_time,
+.filter .method,
+.filter .select_type {
+  margin: 5px 0;
 }
-ul.output li.error {
-  background: red;
-}
-ul.output div {
+
+.filter .select_type {
   display: inline-block;
-}
-ul.output .date {
-  width: 100px;
-  vertical-align: text-top;
-}
-ul.output .p1 {
-  text-align: right;
-  width: 50px;
-}
-ul.output .p2 {
-  width: 50px;
-}
-ul.output .process {
-  width: 100px;
-}
-ul.output .type {
-  width: 100px;
-}
-ul.output .ip {
-  width: 140px;
-  vertical-align: text-top;
-}
-ul.output .method {
-  width: 200px;
-  overflow: hidden;
-  vertical-align: text-top;
-}
-ul.output .message {
-  vertical-align: text-top;
-  width: calc(100% - 100px - 50px - 50px - 100px - 100px - 140px - 200px - 30px);
-  margin-bottom: 5px;
-}
-
-
-.datetimepicker {
   width: 300px;
+}
+
+.filter .date_time .date_time_from,
+.filter .date_time .date_time_to {
+  display: inline-block;
+  width: 300px;
+  vertical-align: bottom;
+}
+
+.filter .method {
+  display: inline-block;
+  width: 300px;
+}
+
+
+/** Выбор файла bootstrap3 */
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
 }

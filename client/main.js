@@ -1,40 +1,45 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { LoadLibMask, ExecFuncMask } from './regex_masks'
+import { Session } from 'meteor/session'
 
 import './main.html';
 
-Template.load_file.onRendered(function() {
+
+Template.filters.onRendered(function() {
   this.$('.datetimepicker').datetimepicker({
     locale: 'ru',
     format: 'LT'
   });
 });
 
-Template.load_file.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.fileInfo = new ReactiveDict('FileInfo');
-  this.filter = new ReactiveDict('Filter');
+Template.load_file.onCreated(function() {
+});
+
+Template.view.onCreated(function() {
+  let menu = new Context.Menu('TableOptional');
+  Context.addMenu(menu);
 });
 
 Template.load_file.helpers({
   getRowCount: function() {
-    return Template.instance().fileInfo.get('rowCount');
-  },
-  getRow: function(rowsCount) {
-    rowsCount = 1000;
-    let rows = Template.instance().fileInfo.get('resultParsed');
-    if (!rows)
-      return null;
-    return rows;
-  },
-  fields: function() {
-    return [
-      { key: 'date', label: 'Дата'},
-      { key: 'type', label: 'Тип'},
-      { key: 'method', label: 'Метод'},
-      { key: 'message', label: 'Сообщение'},
-    ];
+    return (Session.get('resultParsed') || []).length;
+  }
+});
+
+Template.view.helpers({
+  settings: function() {
+    return {
+      collection: Session.get('resultParsed') || [],
+      rowsPerPage: 20,
+      showFilter: false,
+      fields: [
+        { key: 'date', label: 'Дата'},
+        { key: 'type', label: 'Тип'},
+        { key: 'method', label: 'Метод'},
+        { key: 'message', label: 'Сообщение'},
+      ]
+    }
   }
 });
 
@@ -48,25 +53,37 @@ Template.load_file.events({
 
     let reader = new FileReader();
     reader.onload = function(event) {
-      showFile(instance, event.target.result);
+      _parseFile(event.target.result);
     };
     reader.readAsText(files[0]);
 
-  },
-  'change #filter_type'(event, instance) {
-    Template.instance().filter.set('Type', event.target.value)
-  },
-  'change #filter_method'(event, instance) {
-    Template.instance().filter.set('Method', event.target.value)
   }
 });
 
-function showFile(template, fileData) {
+Template.filters.events({
+  'change #filter_type'() {
+    _prepareData();
+  },
+  'change #filter_method'() {
+    _prepareData();
+  }
+});
+
+Template.view.events({
+  'click .reactive-table tbody tr td': function(e) {
+    switch (e.currentTarget.className) {
+      case 'date':
+        break;
+    }
+
+
+  }
+});
+
+function _parseFile(fileData) {
   //document.getElementById('file_data').innerText = fileData;
 
   let rows = fileData.split('\n');
-  template.fileInfo.set('rows', rows);
-  template.fileInfo.set('rowCount', rows.length);
   let result = [];
   for (let i = 0; i < rows.length; i++) {
     let row = _parseFunc(rows[i]) || _parseLib(rows[i]);
@@ -76,7 +93,35 @@ function showFile(template, fileData) {
 
     result.push(row);
   }
-  template.fileInfo.set('resultParsed', result);
+  Session.set('allData', result);
+  _prepareData();
+}
+
+function _prepareData() {
+  let data = Session.get('allData') || [];
+  let result = [];
+  data.forEach(function(item) {
+    // Отфильтруем по типу
+    switch ($('#filter_type').val()) {
+      case 'all':
+        break;
+      case 'warn':
+        if (item.type !== 'WARNING')
+          return;
+        break;
+      case 'err':
+        if (item.type !== 'ERROR')
+          return;
+        break;
+      case 'warnerr':
+        if (item.type !== 'ERROR' || item.type !== 'WARNING')
+          return;
+        break;
+    }
+    // Отфильтруем по времени
+    result.push(item);
+  });
+  Session.set('resultParsed', result);
 }
 
 function _parseFunc(str) {
@@ -112,7 +157,7 @@ function _parseLib(str) {
     process: row[4],
     type: row[5],
     message: row[6],
-    parse: 'ExecFuncMask',
+    parse: 'LoadLibMask',
     class_type: row[5] === 'WARNING' ? 'warning' : row[5] === 'ERROR' ? 'error' : 'info'
   }
 }

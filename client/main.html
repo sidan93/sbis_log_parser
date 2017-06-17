@@ -1,35 +1,60 @@
 <head>
-    <title>SBIS log parser</title>
+  <title>SBIS log parser</title>
 </head>
 
 <body>
+  <div class="content">
     {{> load_file}}
+    {{> filters}}
+    {{> view}}
+  </div>
 </body>
 
 <template name="load_file">
-    <input type="file" id="select_file" name="files"/>
-    <div>
-        Строк: {{getRowCount}}
-    </div>
-    Фильтр:
-    <select id="filter_type" class="form-control">
+  <div class="load_file">
+    <span class="btn btn-default btn-file">
+      Выбрать файл <input type="file" id="select_file" name="files">
+    </span>
+    Строк: {{getRowCount}}
+  </div>
+</template>
+
+<template name="filters">
+  <div class="filter">
+    <h3>Фильтры:</h3>
+    <label for="filter_type" class="control-label">Отбирать</label>
+    <div class="select_type">
+      <select id="filter_type" class="form-control">
         <option value="all">Все</option>
         <option value="warn">Только предупреждения</option>
         <option value="err">Только ошибки</option>
         <option value="warnerr">Ошибки и предупреждения</option>
-    </select>
-    <div>
-        Отбирать С:
-        <div class="input-group datetimepicker" id="fromdatetime">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input class="set-due-date form-control" type="text" />
-        </div>
-        До:
-        <div class="input-group datetimepicker" id="todatetime">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input class="set-due-date form-control" type="text" />
-        </div>
+      </select>
     </div>
-    Метод: <input id="filter_method" type="text" class="form-control"/>
-    {{> reactiveTable class="table table-bordered table-hover" collection=getRow }}
+    <div class="date_time">
+      <label for="fromdatetime" class="control-label">Отбирать С:</label>
+      <div class="date_time_from">
+        <div class="input-group datetimepicker" id="fromdatetime">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input class="set-due-date form-control" type="text"/>
+        </div>
+      </div>
+
+      <label for="todatetime" class="control-label">До:</label>
+      <div class="date_time_to">
+        <div class="input-group datetimepicker" id="todatetime">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input class="set-due-date form-control" type="text"/>
+        </div>
+      </div>
+    </div>
+    <label for="filter_method" class="control-label">Метод:</label>
+    <div class="method">
+      <input id="filter_method" type="text" class="form-control"/>
+    </div>
+  </div>
+</template>
+
+<template name="view">
+  {{> reactiveTable class="table table-bordered table-hover" settings=settings }}
 </template>

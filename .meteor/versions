@@ -52,6 +52,7 @@ mongo-id@1.0.6
 npm-mongo@2.2.16_1
 observe-sequence@1.0.14
 ordered-dict@1.0.9
+pascoual:bootstrap-contextmenu@1.0.3
 promise@0.8.8
 random@1.0.10
 reactive-dict@1.1.8
@@ -63,6 +64,7 @@ rzymek:moment@2.8.3_10
 rzymek:moment-locale-it@2.8.4
 rzymek:moment-locale-pt-br@2.8.4
 rzymek:moment-locale-ru@2.8.4
+session@1.1.7
 shell-server@0.2.1
 spacebars@1.0.13
 spacebars-compiler@1.1.0
