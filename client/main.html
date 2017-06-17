@@ -50,11 +50,27 @@
     </div>
     <label for="filter_method" class="control-label">Метод:</label>
     <div class="method">
-      <input id="filter_method" type="text" class="form-control"/>
+      <input id="filter_method" type="text" class="form-control filter_method"/>
+    </div>
+    <input id="filter_only_method" type="checkbox" value=""/>
+    <div>
+      <button id="start_filter" class="btn btn-default">Отфильтровать</button>
     </div>
   </div>
 </template>
 
 <template name="view">
   {{> reactiveTable class="table table-bordered table-hover" settings=settings }}
+
+  <div id="context-menu">
+    <ul class="dropdown-menu" role="menu">
+      <li><a tabindex="-1" href="#">Добавить в фильтр</a></li>
+    </ul>
+  </div>
+  <div id="context-menu-datetime">
+    <ul class="dropdown-menu" role="menu">
+      <li><a class="from" href="#">Фильтровать С</a></li>
+      <li><a class="to" href="#">Фильтровать ДО</a></li>
+    </ul>
+  </div>
 </template>
